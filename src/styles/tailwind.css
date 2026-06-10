@@ -1,0 +1,14 @@
+@import 'tailwindcss' source(none);
+@source '../**/*.{js,ts,jsx,tsx}';
+
+@theme {
+  --font-sans: 'Noto Sans KR', ui-sans-serif, system-ui, sans-serif;
+  --color-app-bg: #1a1315;
+  --color-app-panel: #241b1f;
+  --color-app-pink: #f67ca8;
+  --color-app-pink-light: #ffb8cc;
+  --color-app-brown: #8b6a5d;
+  --color-app-white: #fff7f5;
+}
+
+@import 'tw-animate-css';
