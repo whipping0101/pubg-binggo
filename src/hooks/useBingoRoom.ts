@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { createInitialBoardIds } from '../lib/bingoUtils';
+import { createInitialBoardIds, shuffleArray } from '../lib/bingoUtils';
 import { isSupabaseConfigured, supabase, type BingoRoomRow } from '../lib/supabase';
 
 export type SyncStatus = 'loading' | 'ready' | 'offline' | 'error';
@@ -249,7 +249,17 @@ export function useBingoRoom(roomId: string, isReadOnly: boolean) {
 
   const resetRandomRow = useCallback(() => {
     updateState(({ boardMissionIds: board, completed: currentCompleted }) => {
-      const randomRow = Math.floor(Math.random() * 4);
+      const rowsWithCompleted = Array.from({ length: 4 }, (_, row) => row).filter((row) =>
+        Array.from({ length: 4 }, (_, col) => board[row * 4 + col]).some((id) =>
+          currentCompleted.has(id)
+        )
+      );
+
+      if (rowsWithCompleted.length === 0) {
+        return { boardMissionIds: board, completed: currentCompleted };
+      }
+
+      const randomRow = rowsWithCompleted[Math.floor(Math.random() * rowsWithCompleted.length)];
       const rowIds = Array.from({ length: 4 }, (_, i) => board[randomRow * 4 + i]);
       const nextCompleted = new Set(currentCompleted);
       rowIds.forEach((id) => nextCompleted.delete(id));
@@ -258,9 +268,9 @@ export function useBingoRoom(roomId: string, isReadOnly: boolean) {
   }, [updateState]);
 
   const shuffleBoard = useCallback(() => {
-    updateState(() => ({
-      boardMissionIds: createInitialBoardIds(),
-      completed: new Set<number>(),
+    updateState(({ boardMissionIds: board, completed: currentCompleted }) => ({
+      boardMissionIds: shuffleArray(board),
+      completed: currentCompleted,
     }));
   }, [updateState]);
 

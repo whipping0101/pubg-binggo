@@ -139,7 +139,7 @@ export default function App() {
             </button>
             <button
               onClick={resetRandomRow}
-              disabled={status === 'loading'}
+              disabled={completed.size === 0 || status === 'loading'}
               className="px-6 py-3 bg-app-brown hover:bg-app-brown/80 text-app-white font-semibold rounded-lg transition-colors shadow-lg"
             >
               랜덤 한 줄 초기화
