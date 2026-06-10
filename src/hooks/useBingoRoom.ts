@@ -51,12 +51,15 @@ export function useBingoRoom(roomId: string, isReadOnly: boolean) {
       const payload = serializeState(next);
       lastSyncedPayloadRef.current = payload;
 
-      const { error } = await supabase.from('bingo_rooms').upsert({
-        id: roomIdRef.current,
-        board_mission_ids: next.boardMissionIds,
-        completed_ids: Array.from(next.completed),
-        updated_at: new Date().toISOString(),
-      });
+      const { error } = await supabase.from('bingo_rooms').upsert(
+        {
+          id: roomIdRef.current,
+          board_mission_ids: next.boardMissionIds,
+          completed_ids: Array.from(next.completed),
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: 'id' }
+      );
 
       if (error) {
         setStatus('error');
@@ -193,7 +196,21 @@ export function useBingoRoom(roomId: string, isReadOnly: boolean) {
           applyState(next);
         }
       )
-      .subscribe();
+      .subscribe((subscriptionStatus, err) => {
+        if (!isMounted) return;
+
+        if (subscriptionStatus === 'SUBSCRIBED') {
+          setStatus((current) => (current === 'error' ? current : 'ready'));
+          return;
+        }
+
+        if (subscriptionStatus === 'CHANNEL_ERROR' || subscriptionStatus === 'TIMED_OUT') {
+          setStatus('error');
+          setErrorMessage(
+            err?.message ?? 'Realtime 연결 실패. Supabase에서 bingo_rooms Realtime을 켜주세요.'
+          );
+        }
+      });
 
     return () => {
       isMounted = false;

@@ -21,3 +21,7 @@ create policy "bingo_rooms_update"
   on public.bingo_rooms
   for update
   using (true);
+
+alter table public.bingo_rooms replica identity full;
+
+alter publication supabase_realtime add table public.bingo_rooms;

@@ -49,6 +49,11 @@ export default function App() {
             방: <span className="text-app-pink-light font-semibold">{roomParams.roomId}</span> ·{' '}
             {getStatusLabel(status, roomParams.role)}
           </p>
+          {status === 'offline' && (
+            <p className="mt-2 text-app-pink-light">
+              .env 파일에 VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY를 설정한 뒤 dev 서버를 재시작하세요.
+            </p>
+          )}
           {errorMessage && <p className="mt-1 text-red-400">{errorMessage}</p>}
         </div>
       )}
