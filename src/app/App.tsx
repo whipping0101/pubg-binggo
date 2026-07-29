@@ -66,22 +66,20 @@ export default function App() {
               {bingoCount > 0 ? `🎉 ${bingoCount} BINGO! 🎉` : ''}
             </div>
           </div>
-          {!roomParams.isObsMode && (
-            <div className="text-left">
-              <h2 className="mb-2 text-3xl font-bold text-app-pink-light">🎉 파티후원 메뉴</h2>
-              <ul className="space-y-1 text-2xl text-app-white/80 list-none">
-                <li>
-                  랜덤 한 칸 초기화 10,000 <span aria-hidden="true">🧀</span>
-                </li>
-                <li>
-                  랜덤 한 줄 초기화 20,000 <span aria-hidden="true">🧀</span>
-                </li>
-                <li>
-                  전체 칸 뒤섞기 5,000 <span aria-hidden="true">🧀</span>
-                </li>
-              </ul>
-            </div>
-          )}
+          <div className="text-left">
+            <h2 className="mb-2 text-3xl font-bold text-app-pink-light">🎉 파티후원 메뉴</h2>
+            <ul className="space-y-1 text-2xl text-app-white/80 list-none">
+              <li>
+                랜덤 한 칸 초기화 10,000 <span aria-hidden="true">🧀</span>
+              </li>
+              <li>
+                랜덤 한 줄 초기화 20,000 <span aria-hidden="true">🧀</span>
+              </li>
+              <li>
+                전체 칸 뒤섞기 5,000 <span aria-hidden="true">🧀</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </header>
 
