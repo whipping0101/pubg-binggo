@@ -1,6 +1,6 @@
 import {
   Crosshair,
-  Flame,
+  Key,
   Target,
   Trophy,
   Skull,
@@ -23,7 +23,7 @@ export type Mission = {
 
 export const missions: Mission[] = [
   { id: 1, text: '판처 킬', icon: Hammer },
-  { id: 2, text: '화염병 킬', icon: Flame },
+  { id: 2, text: '비밀의방', icon: Key },
   { id: 3, text: '합산 10킬', icon: Target },
   { id: 4, text: '치킨', icon: Trophy },
   { id: 5, text: '개인 5킬', icon: Crosshair },
