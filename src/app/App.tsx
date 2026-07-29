@@ -77,7 +77,7 @@ export default function App() {
                   랜덤 한 줄 초기화 20,000 <span aria-hidden="true">🧀</span>
                 </li>
                 <li>
-                  전체 칸 뒤섞기 50,000 <span aria-hidden="true">🧀</span>
+                  전체 칸 뒤섞기 5,000 <span aria-hidden="true">🧀</span>
                 </li>
               </ul>
             </div>
